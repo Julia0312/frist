@@ -1,0 +1,865 @@
+{
+	"info": {
+		"_postman_id": "48715eae-7175-4c95-99e8-1db6f7f03be3",
+		"name": "IHRM-登录",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "IHRM-Login-001 手机号码正确，登录成功",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "be7abbb8-9ccf-4e2f-82d4-983789c693c8",
+						"exec": [
+							"pm.test(\"断言响应状态码为200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言success=true\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.success).to.eql(true);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言code=10000\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.code).to.eql(10000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言message='操作成功！'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql('操作成功！');\r",
+							"});\r",
+							"\r",
+							"pm.globals.set(\"hahaha\", \"heeheheheh\");\r",
+							"var hei = pm.globals.get(\"hahaha\");\r",
+							"console.log(hei);\r",
+							"\r",
+							"pm.environment.set(\"hahah2\", \"hehehehe2\");\r",
+							"console.log(pm.environment.get(\"hahah2\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobile\": \"13800000002\", \"password\": \"123456\"}"
+				},
+				"url": {
+					"raw": "{{url}}/api/sys/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IHRM-Login-002 错误手机号，登录失败",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca16e700-98bd-4297-b3c5-c9cbd69e2556",
+						"exec": [
+							"pm.test(\"断言响应状态码为200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言success=false\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.success).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言code=20001\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.code).to.eql(20001);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言message='失败操作！'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql('用户名或密码错误');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobile\": \"13800000003\", \"password\": \"123456\"}"
+				},
+				"url": {
+					"raw": "{{url}}/api/sys/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IHRM-Login-003 缺少手机号参数，登录失败",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "65cc49e5-da1b-4971-8c7b-95f1e521c796",
+						"exec": [
+							"pm.test(\"断言响应状态码为200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言success=false\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.success).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言code=20001\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.code).to.eql(20001);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言message='失败操作！'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql('用户名或密码错误');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"password\": \"123456\"}"
+				},
+				"url": {
+					"raw": "http://ihrm-test.itheima.net/api/sys/login",
+					"protocol": "http",
+					"host": [
+						"ihrm-test",
+						"itheima",
+						"net"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IHRM-Login-004 缺少密码参数，登录失败",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5fd47571-4952-45f7-b2dc-ec8b84905422",
+						"exec": [
+							"pm.test(\"断言响应状态码为200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言success=false\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.success).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言code=20001\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.code).to.eql(20001);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言message='失败操作！'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql('用户名或密码错误');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobile\": \"13800000003\"}"
+				},
+				"url": {
+					"raw": "http://ihrm-test.itheima.net/api/sys/login",
+					"protocol": "http",
+					"host": [
+						"ihrm-test",
+						"itheima",
+						"net"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IHRM-Login-005 多hh参数，登录",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ab6f65d0-c47a-476a-827c-409f61b8053f",
+						"exec": [
+							"pm.test(\"断言响应状态码为200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言success\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.success).to.eql(true);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言code=20001\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.code).to.eql(10000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言message='失败操作！'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"操作成功！\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobile\": \"13800000002\", \"password\": \"123456\", \"hh\": \"haha\"}"
+				},
+				"url": {
+					"raw": "http://ihrm-test.itheima.net/api/sys/login",
+					"protocol": "http",
+					"host": [
+						"ihrm-test",
+						"itheima",
+						"net"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IHRM-Login-006 错误参数名，登录失败",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "95f2ca54-3f3e-4a22-a731-d110dc986830",
+						"exec": [
+							"pm.test(\"断言响应状态码为200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言success=false\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.success).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言code=20001\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.code).to.eql(20001);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言message='失败操作！'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql('用户名或密码错误');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobilel\": \"13800000002\", \"password\": \"123456\"}"
+				},
+				"url": {
+					"raw": "http://ihrm-test.itheima.net/api/sys/login",
+					"protocol": "http",
+					"host": [
+						"ihrm-test",
+						"itheima",
+						"net"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IHRM-Login-007 无参数，登陆失败",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6621839d-d0bf-4356-81e6-cbbc4132b3df",
+						"exec": [
+							"pm.test(\"断言响应状态码为200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言success=false\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.success).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言code=20001\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.code).to.eql(20001);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言message='失败操作！'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql('用户名或密码错误');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "http://ihrm-test.itheima.net/api/sys/login",
+					"protocol": "http",
+					"host": [
+						"ihrm-test",
+						"itheima",
+						"net"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IHRM-Login-008 密码错误，登陆失败",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b57cdcf-1f9f-4b06-b03a-43aa71793192",
+						"exec": [
+							"pm.test(\"断言响应状态码为200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言success=false\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.success).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言code=20001\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.code).to.eql(20001);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言message='失败操作！'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql('用户名或密码错误');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobile\": \"13800000002\", \"password\": \"123457\"}"
+				},
+				"url": {
+					"raw": "http://ihrm-test.itheima.net/api/sys/login",
+					"protocol": "http",
+					"host": [
+						"ihrm-test",
+						"itheima",
+						"net"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IHRM-Login-009 密码为空，登陆失败",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c73f9a3e-aa1f-41ec-bb74-d87f5d2d6580",
+						"exec": [
+							"pm.test(\"断言响应状态码为200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言success=false\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.success).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言code=20001\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.code).to.eql(20001);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言message='失败操作！'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql('用户名或密码错误');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobile\": \"13800000002\", \"password\": \"\"}"
+				},
+				"url": {
+					"raw": "http://ihrm-test.itheima.net/api/sys/login",
+					"protocol": "http",
+					"host": [
+						"ihrm-test",
+						"itheima",
+						"net"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IHRM-Login-010 手机号为空，登陆失败",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f3b75857-8394-4579-bab3-a6f403ce12ea",
+						"exec": [
+							"pm.test(\"断言响应状态码为200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言success=false\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.success).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言code=20001\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.code).to.eql(20001);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言message='失败操作！'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql('用户名或密码错误');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobile\": \"\", \"password\": \"123456\"}"
+				},
+				"url": {
+					"raw": "http://ihrm-test.itheima.net/api/sys/login",
+					"protocol": "http",
+					"host": [
+						"ihrm-test",
+						"itheima",
+						"net"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IHRM-Login-011 12位手机号参数，登陆失败",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2a18fb6d-a29e-400b-8a7c-a548306d49f0",
+						"exec": [
+							"pm.test(\"断言响应状态码为200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言success=false\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.success).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言code=20001\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.code).to.eql(20001);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言message='失败操作！'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql('用户名或密码错误');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobile\": \"138000000021\", \"password\": \"123456\"}"
+				},
+				"url": {
+					"raw": "http://ihrm-test.itheima.net/api/sys/login",
+					"protocol": "http",
+					"host": [
+						"ihrm-test",
+						"itheima",
+						"net"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IHRM-Login-012 10位手机号参数，登陆失败",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "df90724f-df8d-4bc4-b291-85fb4ec895b5",
+						"exec": [
+							"pm.test(\"断言响应状态码为200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言success=false\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.success).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言code=20001\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.code).to.eql(20001);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言message='失败操作！'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql('用户名或密码错误');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobile\": \"1380000000\", \"password\": \"123456\"}"
+				},
+				"url": {
+					"raw": "http://ihrm-test.itheima.net/api/sys/login",
+					"protocol": "http",
+					"host": [
+						"ihrm-test",
+						"itheima",
+						"net"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IHRM-Login-013 5位长度密码参数，登陆失败",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd0e5f97-2428-4075-a91e-ca3fecf133c2",
+						"exec": [
+							"pm.test(\"断言响应状态码为200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言success=false\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.success).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言code=20001\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.code).to.eql(20001);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言message='失败操作！'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql('用户名或密码错误');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobile\": \"13800000002\", \"password\": \"12345\"}"
+				},
+				"url": {
+					"raw": "http://ihrm-test.itheima.net/api/sys/login",
+					"protocol": "http",
+					"host": [
+						"ihrm-test",
+						"itheima",
+						"net"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IHRM-Login-014 连{}都不写的无参数，登陆失败",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4521241-11e6-4936-b063-0f4fdde8013f",
+						"exec": [
+							"pm.test(\"断言响应状态码为200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言success\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.success).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言code\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.code).to.eql(99999);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"断言message\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql('抱歉，系统繁忙，请稍后重试！');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://ihrm-test.itheima.net/api/sys/login",
+					"protocol": "http",
+					"host": [
+						"ihrm-test",
+						"itheima",
+						"net"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
